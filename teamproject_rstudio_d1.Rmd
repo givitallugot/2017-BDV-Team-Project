@@ -1,0 +1,41 @@
+---
+title: "teamproject_rstudio_d1"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+
+library(tidyverse)
+library(ggiraphExtra)
+library(maps)
+setwd("c:\\USER\\R code")
+
+Pollution <- read_csv("pollution_us_2000_2016_2.csv", col_names = T)
+Pollution_NO2 <- read_csv("Pollution_NO2.csv", col_names = T)
+Pollution_O3 <- read_csv("Pollution_O3.csv", col_names = T)
+Pollution_SO2 <- read_csv("Pollution_SO2.csv", col_names = T)
+Pollution_CO <- read_csv("Pollution_CO.csv", col_names = T)
+
+
+#theme_bw() + labs(title = "NO2") + theme(plot.title = element_text(face = "bold", size = 12))
+#theme(axis.text.x = element_blank())
+
+
+
+Pollution_NO2_California <- Pollution_NO2 %>% filter(State=="California") %>% group_by(NO2_1st_Max_Hour) %>% summarise(mean1=mean(NO2_1st_Max_Value)) %>% mutate(Hour=NO2_1st_Max_Hour) %>% select(-NO2_1st_Max_Hour)
+
+Pollution_O3_California <- Pollution_O3 %>% filter(State=="California") %>% group_by(O3_1st_Max_Hour) %>% summarise(mean2=mean(O3_1st_Max_Value))  %>% mutate(Hour=O3_1st_Max_Hour) %>% select(-O3_1st_Max_Hour)
+
+ggplot(Pollution_NO2_California,aes(Hour,mean1)) + geom_point()+geom_line(group=1) + scale_x_continuous(breaks=c(1:23))+ylab("Max_Value_Mean") + theme_bw() + labs(title = "Line: California NO2 Max Value Mean By Max Hour Var.") + theme(plot.title = element_text(face = "bold", size = 12))
+
+ggplot(Pollution_O3_California,aes(Hour,mean2)) + theme_bw() + geom_point()+geom_line(group=1) + scale_x_continuous(breaks=c(1:23))+xlab("Hour")+ylab("Max_Value_Mean") + theme_bw() + labs(title = "Line: California O3 Max Value Mean By Max Hour Var.") + theme(plot.title = element_text(face = "bold", size = 12))
+
+difference_O3_NO2 <- left_join(Pollution_NO2_California,Pollution_O3_California,by="Hour") %>% gather('mean1','mean2',key="type",value="mean")
+
+ggplot(difference_O3_NO2,aes(x=Hour,y=mean,color=type))+geom_point()+geom_line() + theme_bw() + labs(title = "Line: California NO2 & O3 Max Value Mean By Max Hour") + theme(plot.title = element_text(face = "bold", size = 12))
+```
+

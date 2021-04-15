@@ -1,0 +1,125 @@
+---
+title: "teamproject_rstudio_date"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+NO2_spring<-Pollution_NO2 %>% filter(Month %in% c(3:5)) %>% distinct()
+NO2_summer<-Pollution_NO2 %>% filter(Month %in% c(6:8)) %>% distinct()
+NO2_fall<-Pollution_NO2 %>% filter(Month %in% c(9:11)) %>% distinct()
+NO2_winter<-Pollution_NO2 %>% filter(Month %in% c(1:2,12)) %>% distinct()
+
+SO2_spring<-Pollution_SO2 %>% filter(Month %in% c(3:5)) %>% distinct()
+SO2_summer<-Pollution_SO2 %>% filter(Month %in% c(6:8)) %>% distinct()
+SO2_fall<-Pollution_SO2 %>% filter(Month %in% c(9:11)) %>% distinct()
+SO2_winter<-Pollution_SO2 %>% filter(Month %in% c(1:2,12)) %>% distinct()
+
+O3_spring<-Pollution_O3 %>% filter(Month %in% c(3:5)) %>% distinct()
+O3_summer<-Pollution_O3 %>% filter(Month %in% c(6:8)) %>% distinct()
+O3_fall<-Pollution_O3 %>% filter(Month %in% c(9:11)) %>% distinct()
+O3_winter<-Pollution_O3 %>% filter(Month %in% c(1:2,12)) %>% distinct()
+
+CO_spring<-Pollution_CO %>% filter(Month %in% c(3:5)) %>% distinct()
+CO_summer<-Pollution_CO %>% filter(Month %in% c(6:8)) %>% distinct()
+CO_fall<-Pollution_CO %>% filter(Month %in% c(9:11)) %>% distinct()
+CO_winter<-Pollution_CO %>% filter(Month %in% c(1,2,12)) %>% distinct()
+
+Pollution_NO2 %>% group_by(Date_Local) %>% ggplot(aes(Date_Local,NO2_Mean))+geom_point()+geom_smooth(method="lm",color="red") + theme_bw() + labs(title = "Scatter Plot: NO2 By Date") + theme(plot.title = element_text(face = "bold", size = 12))
+
+Pollution_SO2 %>% group_by(Date_Local) %>% ggplot(aes(Date_Local,SO2_Mean))+geom_point()+geom_smooth(method="lm",color="green") + theme_bw() + labs(title = "Scatter Plot: SO2 By Date") + theme(plot.title = element_text(face = "bold", size = 12))
+
+Pollution_O3 %>% group_by(Date_Local) %>% ggplot(aes(Date_Local,O3_Mean))+geom_point()+geom_smooth(method="lm",color="yellow") + theme_bw() + labs(title = "Scatter Plot: O3 By Date") + theme(plot.title = element_text(face = "bold", size = 12))
+
+Pollution_CO %>% group_by(Date_Local) %>% ggplot(aes(Date_Local,CO_Mean))+geom_point()+geom_smooth(method="lm",color="purple") + theme_bw() + labs(title = "Scatter Plot: CO By Date") + theme(plot.title = element_text(face = "bold", size = 12))
+
+NO2_Year <- Pollution_NO2 %>% group_by(Year) %>% summarise(mean=mean(NO2_Mean))
+NO2_Year %>% arrange(desc(mean))
+
+O3_Year <- Pollution_O3 %>% group_by(Year) %>% summarise(mean=mean(O3_Mean))
+O3_Year %>% arrange(desc(mean))
+
+SO2_Year <- Pollution_SO2 %>% group_by(Year) %>% summarise(mean=mean(SO2_Mean))
+SO2_Year %>% arrange(desc(mean))
+
+CO_Year <- Pollution_CO %>% group_by(Year) %>% summarise(mean=mean(CO_Mean))
+CO_Year %>% arrange(desc(mean))
+
+#NO2
+NO2_Year %>% ggplot(aes(Year,mean))+geom_line(color="red", size = 1.8) +scale_x_continuous(breaks=c(2000:2016))+ylab("NO2_Year_Mean") + theme_bw() + labs(title = "Line: NO2 Mean By Year") + theme(axis.text.x = element_text(angle = -20), plot.title = element_text(face = "bold", size = 12))
+
+#O3
+O3_Year %>% ggplot(aes(Year,mean))+geom_line(color="yellow", size = 1.8)+scale_x_continuous(breaks=c(2000:2016))+ylab("O3_Year_Mean") + theme_bw() + labs(title = "Line: O3 Mean By Year") + theme(axis.text.x = element_text(angle = -20), plot.title = element_text(face = "bold", size = 12))
+
+#SO2
+SO2_Year %>% ggplot(aes(Year,mean))+geom_line(color="green", size = 1.8) +scale_x_continuous(breaks=c(2000:2016))+ylab("SO2_Year_Mean") + theme_bw() + labs(title = "Line: SO2 Mean By Year") + theme(axis.text.x = element_text(angle = -20), plot.title = element_text(face = "bold", size = 12))
+
+#CO
+CO_Year %>% ggplot(aes(Year,mean))+geom_line(color="purple", size = 1.8) +scale_x_continuous(breaks=c(2000:2016))+ylab("CO_Year_Mean") + theme_bw() + labs(title = "Line: CO Mean By Year") + theme(axis.text.x = element_text(angle = -20), plot.title = element_text(face = "bold", size = 12))
+
+NO2_Month <- Pollution_NO2 %>% group_by(Month) %>% summarise(mean=mean(NO2_Mean))
+NO2_Month %>% arrange(desc(mean))
+
+O3_Month <- Pollution_O3 %>% group_by(Month) %>% summarise(mean=mean(O3_Mean))
+O3_Month %>% arrange(desc(mean))
+
+SO2_Month <- Pollution_SO2 %>% group_by(Month) %>% summarise(mean=mean(SO2_Mean))
+SO2_Month %>% arrange(desc(mean))
+
+CO_Month <- Pollution_CO %>% group_by(Month) %>% summarise(mean=mean(CO_Mean))
+CO_Month %>% arrange(desc(mean))
+
+#NO2
+NO2_Month %>% ggplot(aes(Month,mean))+geom_line(color="red", size = 1.8)+scale_x_continuous(breaks=c(1:12))+ylab("NO2_Month_Mean") + theme_bw() + labs(title = "Line: NO2 Mean By Month") + theme(plot.title = element_text(face = "bold", size = 12))
+
+#O3
+O3_Month %>% ggplot(aes(Month,mean))+geom_line(color="yellow", size = 1.8)+scale_x_continuous(breaks=c(1:12)) +ylab("O3_Month_Mean") + theme_bw() + labs(title = "Line: O3 Mean By Month") + theme(plot.title = element_text(face = "bold", size = 12))
+
+#SO2
+SO2_Month %>% ggplot(aes(Month,mean))+geom_line(color="green", size = 1.8)+scale_x_continuous(breaks=c(1:12)) +ylab("SO2_Month_Mean") + theme_bw() + labs(title = "Line: SO2 Mean By Month") + theme(plot.title = element_text(face = "bold", size = 12))
+
+#CO
+CO_Month %>% ggplot(aes(Month,mean))+geom_line(color="purple", size = 1.8)+scale_x_continuous(breaks=c(1:12))+ylab("CO_Month_Mean") + theme_bw() + labs(title = "Line: CO Mean By Month") + theme(plot.title = element_text(face = "bold", size = 12))
+
+#°¡¼³ 3
+
+#NO2 - 4 Season
+NO2_spring%>% ggplot(aes(Date_Local,NO2_Mean))+geom_point(color="red", alpha = 1/5)+geom_smooth(method="lm",colour="blue")+ylab("NO2_spring_mean") + theme_bw() + labs(title = "Scatter plot: NO2 Mean - Spring") + theme(plot.title = element_text(face = "bold", size = 12))
+
+NO2_summer%>% ggplot(aes(Date_Local,NO2_Mean))+geom_point(color="yellow", alpha = 1/5)+geom_smooth(method="lm",colour="blue")+ylab("NO2_summer_mean") + theme_bw() + labs(title = "Scatter plot: NO2 Mean - Summer") + theme(plot.title = element_text(face = "bold", size = 12))
+
+NO2_fall%>% ggplot(aes(Date_Local,NO2_Mean))+ geom_point(color="green", alpha = 1/5)+ geom_smooth(method="lm",colour="blue")+ylab("NO2_fall_mean") + theme_bw() + labs(title = "Scatter plot: NO2 Mean - Fall") + theme(plot.title = element_text(face = "bold", size = 12))
+
+NO2_winter%>% ggplot(aes(Date_Local,NO2_Mean))+ geom_point(color="purple", alpha = 1/5)+ geom_smooth(method="lm",colour="blue")+ylab("NO2_winter_mean") + theme_bw() + labs(title = "Scatter plot: NO2 Mean - Winter") + theme(plot.title = element_text(face = "bold", size = 12))
+
+#O3 - 4 Season
+O3_spring%>% ggplot(aes(Date_Local,O3_Mean))+ geom_point(color="red", alpha = 1/5)+ geom_smooth(method="lm",colour="blue")+ylab("O3_spring_mean") + theme_bw() + labs(title = "Scatter plot: O3 Mean - Spring") + theme(plot.title = element_text(face = "bold", size = 12))
+
+O3_summer%>% ggplot(aes(Date_Local,O3_Mean))+ geom_point(color="yellow", alpha = 1/5)+ geom_smooth(method="lm",colour="blue")+ylab("O3_summer_mean") + theme_bw() + labs(title = "Scatter plot: O3 Mean - Summer") + theme(plot.title = element_text(face = "bold", size = 12))
+
+O3_fall%>% ggplot(aes(Date_Local,O3_Mean))+ geom_point(color="green", alpha = 1/5)+ geom_smooth(method="lm",colour="blue")+ylab("O3_fall_mean") + theme_bw() + labs(title = "Scatter plot: O3 Mean - Fall") + theme(plot.title = element_text(face = "bold", size = 12))
+
+O3_winter%>% ggplot(aes(Date_Local,O3_Mean))+ geom_point(color="purple", alpha = 1/5)+ geom_smooth(method="lm",colour="blue")+ylab("O3_winter_mean") + theme_bw() + labs(title = "Scatter plot: O3 Mean - Winter") + theme(plot.title = element_text(face = "bold", size = 12))
+
+#SO2 - 4 Season
+SO2_spring%>% ggplot(aes(Date_Local,SO2_Mean))+ geom_point(color="red", alpha = 1/5)+ geom_smooth(method="lm",colour="blue")+ylab("SO2_spring_mean") + theme_bw() + labs(title = "Scatter plot: SO2 Mean - Spring") + theme(plot.title = element_text(face = "bold", size = 12))
+
+SO2_summer%>% ggplot(aes(Date_Local,SO2_Mean))+ geom_point(color="yellow", alpha = 1/5)+ geom_smooth(method="lm",colour="blue")+ylab("SO2_summer_mean") + theme_bw() + labs(title = "Scatter plot: SO2 Mean - Summer") + theme(plot.title = element_text(face = "bold", size = 12)) + theme_bw() + labs(title = "Scatter plot: SO2 Mean - Summer") + theme(plot.title = element_text(face = "bold", size = 12))
+
+SO2_fall%>% ggplot(aes(Date_Local,SO2_Mean))+ geom_point(color="green", alpha = 1/5)+ geom_smooth(method="lm",colour="blue")+ylab("SO2_fall_mean") + theme_bw() + labs(title = "Scatter plot: SO2 Mean - Fall") + theme(plot.title = element_text(face = "bold", size = 12))
+
+SO2_winter%>% ggplot(aes(Date_Local,SO2_Mean))+ geom_point(color="purple", alpha = 1/5)+ geom_smooth(method="lm",colour="blue")+ylab("SO2_winter_mean") + theme_bw() + labs(title = "Scatter plot: SO2 Mean - Winter") + theme(plot.title = element_text(face = "bold", size = 12))
+
+#CO - 4 Season
+CO_spring%>% ggplot(aes(Date_Local,CO_Mean))+ geom_point(color="red", alpha = 1/5)+ geom_smooth(method="lm",colour="blue")+ylab("CO_spring_mean") + theme_bw() + labs(title = "Scatter plot: CO Mean - Spring") + theme(plot.title = element_text(face = "bold", size = 12))
+
+CO_summer%>% ggplot(aes(Date_Local,CO_Mean))+ geom_point(color="yellow", alpha = 1/5)+ geom_smooth(method="lm",colour="blue")+ylab("CO_summer_mean") + theme_bw() + labs(title = "Scatter plot: CO Mean - Summer") + theme(plot.title = element_text(face = "bold", size = 12))
+
+CO_fall%>% ggplot(aes(Date_Local,CO_Mean))+ geom_point(color="green", alpha = 1/5)+ geom_smooth(method="lm",colour="blue")+ylab("CO_fall_mean") + theme_bw() + labs(title = "Scatter plot: CO Mean - Fall") + theme(plot.title = element_text(face = "bold", size = 12))
+
+CO_winter%>% ggplot(aes(Date_Local,CO_Mean))+ geom_point(color="purple", alpha = 1/5)+ geom_smooth(method="lm",colour="blue")+ylab("CO_winter_mean") + theme_bw() + labs(title = "Scatter plot: CO Mean - Winter") + theme(plot.title = element_text(face = "bold", size = 12))
+```
+

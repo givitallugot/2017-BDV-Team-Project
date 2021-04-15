@@ -1,0 +1,106 @@
+---
+title: "teamproject_rstudio_c2"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+setwd("c:\\USER\\R code")
+library(tidyverse)
+
+Pollution <- read_csv("pollution_us_2000_2016.csv", col_names = T)
+lution <- Pollution %>% select(-X1) %>% rename(State_Code = 'State Code', County_Code = 'County Code', Site_Num = 'Site Num', Date_Local = 'Date Local', NO2_Units = 'NO2 Units', NO2_Mean = 'NO2 Mean',  NO2_1st_Max_Value = 'NO2 1st Max Value', NO2_1st_Max_Hour = 'NO2 1st Max Hour', NO2_AQI = 'NO2 AQI', O3_Units = 'O3 Units', O3_Mean = 'O3 Mean',  O3_1st_Max_Value = 'O3 1st Max Value', O3_1st_Max_Hour = 'O3 1st Max Hour', O3_AQI = 'O3 AQI', SO2_Units = 'SO2 Units', SO2_Mean = 'SO2 Mean',  SO2_1st_Max_Value = 'SO2 1st Max Value', SO2_1st_Max_Hour = 'SO2 1st Max Hour', SO2_AQI = 'SO2 AQI', CO_Units = 'CO Units', CO_Mean = 'CO Mean',  CO_1st_Max_Value = 'CO 1st Max Value', CO_1st_Max_Hour = 'CO 1st Max Hour', CO_AQI = 'CO AQI')
+#seln %>% separate(Date_Local, into = c("Year", "Month", "Day"), sep = "-", remove=FALSE, convert=TRUE)
+#seperate(), Date_Loca% select(State_Code, County_Code, Site_Num, Address, State, County, City, Date_Local, Year, Month, Day, NO2_Units, NO2_Mean, NO2_1st_Max_Value, NO2_1st_Max_Hour, NO2_AQI) %>% distinct()
+
+Pollution_SO2 <- Pollution %>% select(State_Code, County_Code, Site_Num,  Address, State, County, City, Date_Local, Year, Month, Day, SO2_Units, SO2_Mean, SO2_1st_Max_Value, SO2_1st_Max_Hour, SO2_AQI) %>% distinct()
+
+Pollution_O3 <- Pollution %>% select(State_Code, County_Code, Site_Num,  Address, State, County, City, Date_Local, Year, Month, Day, O3_Units, O3_Mean, O3_1st_Max_Value, O3_1st_Max_Hour, O3_AQI) %>% distinct()
+
+Pollution_CO <- Pollution %>% select(State_Code, County_Code, Site_Num,  Address, State, County, City, Date_Local, Year, Month, Day, CO_Units, CO_Mean, CO_1st_Max_Value, CO_1st_Max_Hour, CO_AQI) %>% distinct()
+
+
+#mean, max_vlaue 0?Î°? Á¦??
+
+P filter(NO2_Mean > 0, NO2_1st_Max_Value > 0) 
+Pollution_SO2 <- Pollution_SO2 %>% filter(SO2_Mean > 0, SO2_1st_Max_Value > 0)
+Pollution_O3 <- Pollution_O3 %>% filter(O3_Mean > 0, O3_1st_Max_Value > 0) 
+Pollution_CO <- Pollution_CO %>% filter(CO_Mean > 0, CO_1st_Max_Value > 0) 
+
+
+#AQI ???? ?Ö±?
+
+Pollution_NO2 <- P mutate(NO2_AQI_Class = NO2_AQI %/% 50, NO2_AQI_Class = stringr::str_replace(NO2_AQI_Class, "0", "Good"), NO2_AQI_Class = stringr::str_replace(NO2_AQI_Class, "1", "Moderate"), NO2_AQI_Class = stringr::str_replace(NO2_AQI_Class, "2", "Unhealthy for Sensitive Groups"), NO2_AQI_Class = stringr::str_replace(NO2_AQI_Class, "3", "Unhealthy"), NO2_AQI_Class = stringr::str_replace(NO2_AQI_Class, "4", "Very Unhealthy"), NO2_AQI_Class = stringr::str_replace(NO2_AQI_Class, "5", "Hazardous"))
+
+Pollution_SO2 <- Pollution_SO2 %>% mutate(SO2_AQI_Class = SO2_AQI %/% 50, SO2_AQI_Class = stringr::str_replace(SO2_AQI_Class, "0", "Good"), SO2_AQI_Class = stringr::str_replace(SO2_AQI_Class, "1", "Moderate"), SO2_AQI_Class = stringr::str_replace(SO2_AQI_Class, "2", "Unhealthy for Sensitive Groups"), SO2_AQI_Class = stringr::str_replace(SO2_AQI_Class, "3", "Unhealthy"), SO2_AQI_Class = stringr::str_replace(SO2_AQI_Class, "4", "Very Unhealthy"), SO2_AQI_Class = stringr::str_replace(SO2_AQI_Class, "5", "Hazardous"))
+
+Pollution_O3 <- Pollution_O3 %>% mutate(O3_AQI_Class = O3_AQI %/% 50, O3_AQI_Class = stringr::str_replace(O3_AQI_Class, "0", "Good"), O3_AQI_Class = stringr::str_replace(O3_AQI_Class, "1", "Moderate"), O3_AQI_Class = stringr::str_replace(O3_AQI_Class, "2", "Unhealthy for Sensitive Groups"), O3_AQI_Class = stringr::str_replace(O3_AQI_Class, "3", "Unhealthy"), O3_AQI_Class = stringr::str_replace(O3_AQI_Class, "4", "Very Unhealthy"), O3_AQI_Class = stringr::str_replace(O3_AQI_Class, "5", "Hazardous"))
+
+Pollution_CO <- Pollution_CO %>% mutate(CO_AQI_Class = CO_AQI %/% 50, CO_AQI_Class = stringr::str_replace(CO_AQI_Class, "0", "Good"), CO_AQI_Class = stringr::str_replace(CO_AQI_Class, "1", "Moderate"), CO_AQI_Class = stringr::str_replace(CO_AQI_Class, "2", "Unhealthy for Sensitive Groups"), CO_AQI_Class = stringr::str_replace(CO_AQI_Class, "3", "Unhealthy"), CO_AQI_Class = stringr::str_replace(CO_AQI_Class, "4", "Very Unhealthy"), CO_AQI_Class = stringr::str_replace(CO_AQI_Class, "5", "Hazardous"))
+
+#Á¶??
+Pollution %>% count(State, Cllution %>% count(State_Code, County_Code)
+#???? ??À½
+
+Pollution %>% count(Site_N%>% count(City, Address)
+#???? ?Ù¸?
+
+Pollution %>% count(Site_Num)
+%>% count(Address)
+#???? ?Ù¸?
+
+Pollution %>% count(State, Cou Address)
+Pollution %>% count(State_Code, County_Code, Site_Num)
+#???? ??À½!!
+
+#-> State, County, City, Adds(NO2_AQI_Class, n)) + geom_bar(aes(fill = NO2_AQI_Class), stat = "identity") + theme(axis.text.x = element_text(angle = -8), legend.position = "bottom")
+
+#NO2
+Pollution_NO2 %>% group_by(NO2_AQI_Class) %>% summarise(n=n()) %>% ggplot(aes(NO2_AQI_Class, n)) + geom_bar(aes(fill = NO2_AQI_Class), stat = "identity") + theme(axis.text.x = element_text(angle = -8), legend.position = "bottom")
+#???? ?? Good?? ????. Unhealthy for Sensitive
+
+#NO2_AQI_Class = Unhealthy for ss == "Unhealthy for Sensitive Groups") %>% group_by(State, County) %>% summarise(AQI_mean = mean(NO2_AQI)) %>% arrange(desc(AQI_mean)) 
+
+#SO2
+Pollution_SO2 %>% filter(!is.na(SO2_AQI) == TRUE) %>% group_by(SO2_AQI_Class) %>% summarise(n=n()) %>% ggplot(aes(SO2_AQI_Class, n)) + geom_bar(aes(fill = SO2_AQI_Class), stat = "identity") + theme(axis.text.x = element_text(angle = -8), legend.position = "bottom")
+#???? ?? Good?? ????. but Unhealthy for Sensitive, Unhealthy, Very Unhealthy?? ???Âµ?.
+
+#SO2_AQI_Class = Unhealthy for Sensitive
+Pollution_SO2 %>% filter(SO2_AQI_Class == "Unhealthy for Sensitive Groups") %>% group_by(State, County) %>% summarise(AQI_mean = mean(SO2_AQI)) %>% arrange(desc(AQI_mean))
+
+#SO2_AQI_Class = Unhealthy
+Pollution_SO2 %>% filter(SO2_AQI_Class == "Unhealthy") %>% group_by(State, County) %>% summarise(AQI_mean = mean(SO2_AQI)) %>% arrange(desc(AQI_mean))
+
+#SO2_AQI_Class = Very Unhealthy
+Pollution_SO2 %>% filter(SO2_AQI_Class == "Very Unhealthy") %>% group_by(State, County) %>% summarise(AQI_mean = mean(SO2_AQI)) %>% arrange(desc(AQI_mean))
+
+#O3
+Pollution_O3 %>% filter(!is.na(O3_AQI) == TRUE) %>% group_by(O3_AQI_Class) %>% summarise(n=n()) %>% ggplot(aes(O3_AQI_Class, n)) + geom_bar(aes(fill = O3_AQI_Class), stat = "identity") + theme(axis.text.x = element_text(angle = -8), legend.position = "bottom")
+#Good?? ???Îº?. moderate?? Á¸????.
+
+#O3_AQI_Class = Unhealthy for Sensitive
+PoUnhealthy for Sensitive Groups") %>% group_by(State, County) %>% summarise(AQI_mean = mean(O3_AQI)) %>% arrange(desc(AQI_mean))
+
+#O3_AQI_Class = Unhealthy
+Pollution_O3 %>% filter(O3_AQI_Class == "Unhealthy") %>% group_by(State, County) %>% summarise(AQI_mean = mean(O3_AQI)) %>% arrange(desc(AQI_mean))
+
+#O3_AQI_Class = Very Unhealthy
+Pollution_O3 %>% filter(O3_AQI_Class == "Very Unhealthy") %>% group_by(State, County) %>% summarise(AQI_mean = mean(O3_AQI)) %>% arrange(desc(AQI_mean))
+
+#CO
+Pollution_CO %>% filter(!is.na(CO_AQI) == TRUE) %>% group_by(CO_AQI_Class) %>% summarise(n=n()) %>% ggplot(aes(CO_AQI_Class, n)) + geom_bar(aes(fill = CO_AQI_Class), stat = "identity") + theme(axis.text.x = element_text(angle = -8), legend.position = "bottom")
+#Good?? ???Îº?.
+
+#CO_AQI_Class = Unhealthy for Sensitive
+Pollution_CO %>% filter(CUnhealthy for Sensitive Groups") %>% group_by(State, County) %>% summarise(AQI_mean = mean(CO_AQI)) %>% arrange(desc(AQI_mean))
+
+#CO_AQI_Class = Unhealthy
+Pollution_CO %>% filter(CO_AQI_Class == "Unhealthy") %>% group_by(State, County) %>% summarise(AQI_mean = mean(CO_AQI)) %>% arrange(desc(AQI_mean))
+
+#CO_AQI_Class = Very Unhealthy
+Pollution_CO %>% filter(CO_AQI_Class == "Very Unhealthy") %>% group_by(State, County) %>% summarise(AQI_mean = mean(CO_AQI)) %>% arrange(desc(AQI_mean))
+```
+

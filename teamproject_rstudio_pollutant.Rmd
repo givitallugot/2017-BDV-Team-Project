@@ -1,0 +1,199 @@
+---
+title: "teamproject_rstudio_pollutant"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#NO
+Pollution_NO2 %>% group_by(NO2_AQI_Class) %>% summarise(n=n()) %>% ggplot(aes(NO2_AQI_Class, n)) + geom_bar(aes(fill = NO2_AQI_Class), stat = "identity") + theme_bw() + labs(title = "NO2 AQI BY Class") + theme(axis.text.x = element_text(angle = -5), legend.position = "bottom", plot.title = element_text(face = "bold", size = 12))
+
+ution_NO2 %>% filter(NO2_AQI_Class == "Unhealthy for Sensitive Groups") %>% group_by(State, County) %>% summarise(AQI_mean = mean(NO2_AQI)) %>% arrange(desc(AQI_mean))
+
+#?̻ution_NO2 %>% filter(NO2_AQI_Class == "Unhealthy for Sensitive Groups") %>% group_by(Date_Local) %>% summarise(AQI_mean = mean(NO2_AQI)) %>% arrange(desc(AQI_mean))
+
+#?̻n_NO2 %>% filter(NO2_AQI_Class == "Unhealthy for Sensitive Groups") %>% group_by(State, County, Date_Local) %>% summarise(AQI_mean = mean(NO2_AQI)) %>% arrange(desc(AQI_mean))
+
+
+#O3
+Pollution_O3 %>% filter(!is.na(O3_AQI) == TRUE) %>% group_by(O3_AQI_Class) %>% summarise(n=n()) %>% ggplot(aes(O3_AQI_Class, n)) + geom_bar(aes(fill = O3_AQI_Class), stat = "identity") + theme_bw() + labs(title = "O3 AQI BY Class") + theme(axis.text.x = element_text(angle = -6), legend.position = "bottom", plot.title = element_text(face = "bold", size = 12))
+
+#?̻?ġ ? = Unhealthy for Sensitive
+Pollution_O3 %>% filter(O3_AQI_Class == "Unhealthy for Sensitive Groups") %>% group_by(State, County) %>% summarise(AQI_mean = mean(O3_AQI)) %>% arrange(desc(AQI_mean))
+
+#O3_AQI_Class = Unhealthy
+Pollution_O3 %>% filter(O3_AQI_Class == "Unhealthy") %>% group_by(State, County) %>% summarise(AQI_mean = mean(O3_AQI)) %>% arrange(desc(AQI_mean))
+
+#O3_AQI_Class = Very Unhealthy
+Pollution_O3 %>% filter(O3_AQI_Class == "Very Unhealthy") %>% group_by(State, County) %>% summarise(AQI_mean = mean(O3_AQI)) %>% arrange(desc(AQI_mean))
+
+#?̻?ġ ????  = Unhealthy for Sensitive
+Pollution_O3 %>% filter(O3_AQI_Class == "Unhealthy for Sensitive Groups") %>% group_by(Date_Local) %>% summarise(AQI_mean = mean(O3_AQI)) %>% arrange(desc(AQI_mean))
+
+#O3_AQI_Class = Unhealthy
+Pollution_O3 %>% filter(O3_AQI_Class == "Unhealthy") %>% group_by(Date_Local) %>% summarise(AQI_mean = mean(O3_AQI)) %>% arrange(desc(AQI_mean))
+
+#O3_AQI_Class = Very Unhealthy
+Pollution_O3 %>% filter(O3_AQI_Class == "Very Unhealthy") %>% group_by(Date_Local) %>% summarise(AQI_mean = mean(O3_AQI)) %>% arrange(desc(AQI_mean))
+
+#?̻?ġ ???? nhealthy for Sensitive
+Pollution_O3 %>% filter(O3_AQI_Class == "Unhealthy for Sensitive Groups") %>% group_by(State, County, Date_Local) %>% summarise(AQI_mean = mean(O3_AQI)) %>% arrange(desc(AQI_mean))
+
+#O3_AQI_Class = Unhealthy
+Pollution_O3 %>% filter(O3_AQI_Class == "Unhealthy") %>% group_by(State, County, Date_Local) %>% summarise(AQI_mean = mean(O3_AQI)) %>% arrange(desc(AQI_mean))
+
+#O3_AQI_Class = Very Unhealthy
+Pollution_O3 %>% filter(O3_AQI_Class == "Very Unhealthy") %>% group_by(State, County, Date_Local) %>% summarise(AQI_mean = mean(O3_AQI)) %>% arrange(desc(AQI_mean))
+
+#SO2
+Pollution_SO2 %>% filter(!is.na(SO2_AQI) == TRUE) %>% group_by(SO2_AQI_Class) %>% summarise(n=n()) %>% ggplot(aes(SO2_AQI_Class, n)) + geom_bar(aes(fill = SO2_AQI_Class), stat = "identity") + theme_bw() + labs(title = "SO2 AQI BY Class") + theme(axis.text.x = element_text(angle = -6), legend.position = "bottom", plot.title = element_text(face = "bold", size = 12))
+
+#?̻?ġ ???? ��ġalthy for Sensitive
+Pollution_SO2 %>% filter(SO2_AQI_Class == "Unhealthy for Sensitive Groups") %>% group_by(State, County) %>% summarise(AQI_mean = mean(SO2_AQI)) %>% arrange(desc(AQI_mean))
+
+#SO2_AQI_Class = Unhealthy
+Pollution_SO2 %>% filter(SO2_AQI_Class == "Unhealthy") %>% group_by(State, County) %>% summarise(AQI_mean = mean(SO2_AQI)) %>% arrange(desc(AQI_mean))
+
+#SO2_AQI_Class = Very Unhealthy
+Pollution_SO2 %>% filter(SO2_AQI_Class == "Very Unhealthy") %>% group_by(State, County) %>% summarise(AQI_mean = mean(SO2_AQI)) %>% arrange(desc(AQI_mean))
+
+#?̻?ġ ???? ??¥ Ȯ?althy for Sensitive
+Pollution_SO2 %>% filter(SO2_AQI_Class == "Unhealthy for Sensitive Groups") %>% group_by(Date_Local) %>% summarise(AQI_mean = mean(SO2_AQI)) %>% arrange(desc(AQI_mean))
+
+#SO2_AQI_Class = Unhealthy
+Pollution_SO2 %>% filter(SO2_AQI_Class == "Unhealthy") %>% group_by(Date_Local) %>% summarise(AQI_mean = mean(SO2_AQI)) %>% arrange(desc(AQI_mean))
+
+#SO2_AQI_Class = Very Unhealthy
+Pollution_SO2 %>% filter(SO2_AQI_Class == "Very Unhealthy") %>% group_by(Date_Local) %>% summarise(AQI_mean = mean(SO2_AQI)) %>% arrange(desc(AQI_mean))
+
+#?̻?ġ ???? ��ġ + ?y for Sensitive
+Pollution_SO2 %>% filter(SO2_AQI_Class == "Unhealthy for Sensitive Groups") %>% group_by(State, County, Date_Local) %>% summarise(AQI_mean = mean(SO2_AQI)) %>% arrange(desc(AQI_mean))
+
+#SO2_AQI_Class = Unhealthy
+Pollution_SO2 %>% filter(SO2_AQI_Class == "Unhealthy") %>% group_by(State, County, Date_Local) %>% summarise(AQI_mean = mean(SO2_AQI)) %>% arrange(desc(AQI_mean))
+
+#SO2_AQI_Class = Very Unhealthy
+Pollution_SO2 %>% filter(SO2_AQI_Class == "Very Unhealthy") %>% group_by(State, County, Date_Local) %>% summarise(AQI_mean = mean(SO2_AQI)) %>% arrange(desc(AQI_mean))
+
+#CO
+Pollution_CO %>% filter(!is.na(CO_AQI) == TRUE) %>% group_by(CO_AQI_Class) %>% summarise(n=n()) %>% ggplot(aes(CO_AQI_Class, n)) + geom_bar(aes(fill = CO_AQI_Class), stat = "identity") + theme_bw() + labs(title = "CO AQI BY Class") + theme(axis.text.x = element_text(angle = -6), legend.position = "bottom", plot.title = element_text(face = "bold", size = 12))
+
+#?̻?ġ ???? ��ġ Ȯ??
+#C Sensitive
+Pollution_CO %>% filter(CO_AQI_Class == "Unhealthy for Sensitive Groups") %>% group_by(State, County) %>% summarise(AQI_mean = mean(CO_AQI)) %>% arrange(desc(AQI_mean))
+
+#CO_AQI_Class = Unhealthy
+Pollution_CO %>% filter(CO_AQI_Class == "Unhealthy") %>% group_by(State, County) %>% summarise(AQI_mean = mean(CO_AQI)) %>% arrange(desc(AQI_mean))
+
+#CO_AQI_Class = Very Unhealthy
+Pollution_CO %>% filter(CO_AQI_Class == "Very Unhealthy") %>% group_by(State, County) %>% summarise(AQI_mean = mean(CO_AQI)) %>% arrange(desc(AQI_mean))
+
+#?̻?ġ ???? ??¥ Ȯ??
+#CO_AQ Sensitive
+Pollution_CO %>% filter(CO_AQI_Class == "Unhealthy for Sensitive Groups") %>% group_by(Date_Local) %>% summarise(AQI_mean = mean(CO_AQI)) %>% arrange(desc(AQI_mean))
+
+#CO_AQI_Class = Unhealthy
+Pollution_CO %>% filter(CO_AQI_Class == "Unhealthy") %>% group_by(Date_Local) %>% summarise(AQI_mean = mean(CO_AQI)) %>% arrange(desc(AQI_mean))
+
+#CO_AQI_Class = Very Unhealthy
+Pollution_CO %>% filter(CO_AQI_Class == "Very Unhealthy") %>% group_by(Date_Local) %>% summarise(AQI_mean = mean(CO_AQI)) %>% arrange(desc(AQI_mean))
+
+#?̻?ġ ???? ��ġ + ??¥ Ȯ??sitive
+Pollution_CO %>% filter(CO_AQI_Class == "Unhealthy for Sensitive Groups") %>% group_by(State, County, Date_Local) %>% summarise(AQI_mean = mean(CO_AQI)) %>% arrange(desc(AQI_mean))
+
+#CO_AQI_Class = Unhealthy
+Pollution_CO %>% filter(CO_AQI_Class == "Unhealthy") %>% group_by(State, County, Date_Local) %>% summarise(AQI_mean = mean(CO_AQI)) %>% arrange(desc(AQI_mean))
+
+#CO_AQI_Class = Very Unhealthy
+Pollution_CO %>% filter(CO_AQI_Class == "Very Unhealthy") %>% group_by(State, County, Date_Local) %>% summarise(AQI_mean = mean(CO_AQI)) %>% arrange(desc(AQI_mean))
+
+
+#NO2
+Pollution_NO2 %>% group_by(State) %>% summarise(AQI_Mean = mean(NO2_AQI)) %>% ggplot(aes(State, AQI_Mean)) + geom_point() + geom_hline(aes(yintercept = mean(AQI_Mean)), color = "red") + theme_bw() + labs(title = "NO2 Mean AQI By State") + theme(plot.title = element_text(face = "bold", size = 12), axis.text.x = element_blank()) + ylim(0, 46)
+
+#???տ? ???? ?ξ? ??�� AQI_Mean?% summarise(AQI_Mean = mean(NO2_AQI)) %>% filter(AQI_Mean > 35) %>% arrange(desc(AQI_Mean))
+
+Pollution_NO2 %>% group_by(State) %>% summarise(AQI_Mean = mean(NO2_AQI)) %>% filter(AQI_Mean < 10) %>% arrange(AQI_Mean)
+
+#O3
+Pollution_O3 %>% group_by(State) %>% summarise(AQI_Mean = mean(O3_AQI, na.rm = TRUE)) %>% ggplot(aes(State, AQI_Mean)) + geom_point() + geom_hline(aes(yintercept = mean(AQI_Mean, na.rm = TRUE)), color = "red") + theme_bw() + labs(title = "O3 Mean AQI By State") + theme(plot.title = element_text(face = "bold", size = 12), axis.text.x = element_blank()) + ylim(0, 46)
+
+#???տ? ???? ?ξ? ??�� AQI_Mean?? 40marise(AQI_Mean = mean(O3_AQI, na.rm = TRUE)) %>% filter(AQI_Mean > 40) %>% arrange(desc(AQI_Mean))
+
+Pollution_O3 %>% group_by(State) %>% summarise(AQI_Mean = mean(O3_AQI, na.rm = TRUE)) %>% filter(AQI_Mean < 30) %>% arrange(AQI_Mean)
+
+#SO2
+Pollution_SO2 %>% group_by(State) %>% summarise(AQI_Mean = mean(SO2_AQI, na.rm = TRUE)) %>% ggplot(aes(State, AQI_Mean)) + geom_point() + geom_hline(aes(yintercept = mean(AQI_Mean, na.rm = TRUE)), color = "red") + theme_bw() + labs(title = "SO2 Mean AQI By State") + theme(plot.title = element_text(face = "bold", size = 12), axis.text.x = element_blank()) + ylim(0, 46)
+
+#???տ? ???? ?ξ? ??�� AQI_Mean?? 15 ?̻ise(AQI_Mean = mean(SO2_AQI, na.rm = TRUE)) %>% filter(AQI_Mean > 15) %>% arrange(desc(AQI_Mean))
+
+Pollution_SO2 %>% group_by(State) %>% summarise(AQI_Mean = mean(SO2_AQI, na.rm = TRUE)) %>% filter(AQI_Mean < 2) %>% arrange(AQI_Mean)
+
+#CO
+Pollution_CO %>% group_by(State) %>% summarise(AQI_Mean = mean(CO_AQI, na.rm = TRUE)) %>% ggplot(aes(State, AQI_Mean)) + geom_point() + geom_hline(aes(yintercept = mean(AQI_Mean, na.rm = TRUE)), color = "red") + theme_bw() + labs(title = "CO Mean AQI By State") + theme(plot.title = element_text(face = "bold", size = 12), axis.text.x = element_blank()) + ylim(0, 46)
+
+#???տ? ???? ?ξ? ??�� AQI_Mean?? 10 ?̻??? ??????, AQI_Mean?? 3 ?????? ???츸 ???캸??,
+Pollution_CO %>% group_by(State) %>% summarise(AQI_Mean = mean(CO_AQI, na.rm = TRUE)) %>% filter(AQI_Mean > 10) %>% arrange(desc(AQI_Mean))
+
+Pollution_CO %>% group_by(State) %>% summarise(AQI_Mean = mean(CO_AQI, na.rm = TRUE)) %>% filter(AQI_Mean < 3) %>% arrange(AQI_Mean)
+
+#?̻?ġ Ȯ??
+Pollution_CO %>% group_by(State) %>QI_Mean = mean(CO_AQI, na.rm = TRUE)) %>% filter(AQI_Mean > 15) %>% arrange(desc(AQI_Mean))
+
+#��?? ????
+ggplot(Pollution_NO2, aes(NO2_1st_Maxbar() + scale_x_continuous(breaks=c(0:23)) + theme_bw() + labs(title = "NO2 By Max Hour Var.") + theme(plot.title = element_text(face = "bold", size = 12))
+
+ggplot(Pollution_SO2, aes(SO2_1st_Max_Hour)) + geom_bar() + scale_x_continuous(breaks=c(0:23)) + theme_bw() + labs(title = "SO2 By Max Hour Var.") + theme(plot.title = element_text(face = "bold", size = 12))
+
+ggplot(Pollution_CO, aes(CO_1st_Max_Hour)) + geom_bar() + scale_x_continuous(breaks=c(0:23)) + theme_bw() + labs(title = "CO By Max Hour Var.") + theme(plot.title = element_text(face = "bold", size = 12))
+
+ggplot(Pollution_O3, aes(O3_1st_Max_Hour)) + geom_bar() + scale_x_continuous(breaks=c(0:23))+scale_x_continuous(breaks=c(0:23)) + theme_bw() + labs(title = "O3 By Max Hour Var.") + theme(plot.title = element_text(face = "bold", size = 12))
+
+#NO2
+ggplot(Pollution_NO2,aes(NO2_1st_Max_Hour,NO2_1st_Max_Value)) + geom_point() + theme_bw() + labs(title = "Scatter Plot: NO2 Max Value Mean By Max Hour Var.") + theme(plot.title = element_text(face = "bold", size = 12))
+
+Pollution_NO2_1 <- Pollution_NO2 %>%  group_by(NO2_1st_Max_Hour) %>% summarise(Max_Value_mean_by_hour=mean(NO2_1st_Max_Value))
+
+ggplot(Pollution_NO2_1,aes(NO2_1st_Max_Hour,Max_Value_mean_by_hour)) + geom_point()+geom_line(group=1) + scale_x_continuous(breaks=c(1:23))+xlab("Hour")+ylab("NO2_Max_Value_Mean") + theme_bw() + labs(title = "Line: NO2 Max Value Mean By Max Hour Var.") + theme(plot.title = element_text(face = "bold", size = 12))
+
+#
+ggplot(Pollution_SO2,aes(SO2_1st_Max_Hour,SO2_1st_Max_Value)) + geom_point() + theme_bw() + labs(title = "Scatter Plot: SO2 Max Value Mean By Max Hour Var.") + theme(plot.title = element_text(face = "bold", size = 12))
+
+Pollution_SO2_1 <- Pollution_SO2 %>%  group_by(SO2_1st_Max_Hour) %>% summarise(Max_Value_mean_by_hour=mean(SO2_1st_Max_Value))
+
+ggplot(Pollution_SO2_1,aes(SO2_1st_Max_Hour,Max_Value_mean_by_hour)) + geom_point()+geom_line(group=1) + scale_x_continuous(breaks=c(1:23))+xlab("Hour")+ylab("SO2_Max_Value_Mean") + theme_bw() + labs(title = "Line: SO2 Max Value Mean By Max Hour Var.") + theme(plot.title = element_text(face = "bold", size = 12))
+
+#
+ggplot(Pollution_CO,aes(CO_1st_Max_Hour,CO_1st_Max_Value)) + geom_point() + theme_bw() + labs(title = "Scatter Plot: CO Max Value Mean By Max Hour Var.") + theme(plot.title = element_text(face = "bold", size = 12))
+
+Pollution_CO_1 <- Pollution_CO %>%  group_by(CO_1st_Max_Hour) %>% summarise(Max_Value_mean_by_hour=mean(CO_1st_Max_Value))
+
+ggplot(Pollution_CO_1,aes(CO_1st_Max_Hour,Max_Value_mean_by_hour)) + geom_point()+geom_line(group=1) + scale_x_continuous(breaks=c(1:23))+xlab("Hour")+ylab("CO_Max_Value_Mean") + theme_bw() + labs(title = "Line: CO Max Value Mean By Max Hour Var.") + theme(plot.title = element_text(face = "bold", size = 12))
+
+#
+ggplot(Pollution_O3,aes(O3_1st_Max_Hour,O3_1st_Max_Value)) + geom_point() + theme_bw() + labs(title = "Scatter Plot: O3 Max Value Mean By Max Hour Var.") + theme(plot.title = element_text(face = "bold", size = 12))
+
+Pollution_O3_1 <- Pollution_O3 %>%  group_by(O3_1st_Max_Hour) %>% summarise(Max_Value_mean_by_hour=mean(O3_1st_Max_Value))
+
+ggplot(Pollution_O3_1,aes(O3_1st_Max_Hour,Max_Value_mean_by_hour)) + geom_point()+geom_line(group=1) + scale_x_continuous(breaks=c(1:23))+xlab("Hour")+ylab("O3_Max_Value_Mean") + theme_bw() + labs(title = "Line: O3 Max Value Mean By Max Hour Var.") + theme(plot.title = element_text(face = "bold", size = 12))
+
+
+##
+Pollution_NO2_California <- Pollution_NO2 %>% filter(State=="California") %>% group_by(NO2_1st_Max_Hour) %>% summarise(mean1=mean(NO2_1st_Max_Value)) %>% mutate(Hour=NO2_1st_Max_Hour) %>% select(-NO2_1st_Max_Hour)
+
+Pollution_O3_California <- Pollution_O3 %>% filter(State=="California") %>% group_by(O3_1st_Max_Hour) %>% summarise(mean2=mean(O3_1st_Max_Value))  %>% mutate(Hour=O3_1st_Max_Hour) %>% select(-O3_1st_Max_Hour)
+
+ggplot(Pollution_NO2_California,aes(Hour,mean1)) + geom_point()+geom_line(group=1) + scale_x_continuous(breaks=c(1:23))+ylab("Max_Value_Mean") + theme_bw() + labs(title = "Line: California NO2 Max Value Mean By Max Hour Var.") + theme(plot.title = element_text(face = "bold", size = 12))
+
+ggplot(Pollution_O3_California,aes(Hour,mean2)) + theme_bw() + geom_point()+geom_line(group=1) + scale_x_continuous(breaks=c(1:23))+xlab("Hour")+ylab("Max_Value_Mean") + theme_bw() + labs(title = "Line: California O3 Max Value Mean By Max Hour Var.") + theme(plot.title = element_text(face = "bold", size = 12))
+
+difference_O3_NO2 <- left_join(Pollution_NO2_California,Pollution_O3_California,by="Hour") %>% gather('mean1','mean2',key="type",value="mean")
+
+ggplot(difference_O3_NO2,aes(x=Hour,y=mean,color=type))+geom_point()+geom_line() + theme_bw() + labs(title = "Line: California NO2 & O3 Max Value Mean By Max Hour") + theme(plot.title = element_text(face = "bold", size = 12))
+
+
+```
+
